@@ -6,11 +6,7 @@ import classnames from 'classnames'
 export interface StageProps {
   className?: string
 }
-export interface StageState {
-  scale: number
-  translateX: number
-  translateY: number
-}
+export interface StageState {}
 
 interface Dragging {
   startX: number
@@ -24,11 +20,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
 
   public wrapperRef = React.createRef<HTMLDivElement>()
   public containerRef = React.createRef<HTMLDivElement>()
-  public state: StageState = {
-    scale: 1,
-    translateX: 0,
-    translateY: 0,
-  }
+  public state: StageState = {}
 
   private dragging: Dragging | null = null
 
@@ -77,8 +69,8 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
     this.dragging = {
       startX: e.clientX,
       startY: e.clientY,
-      originX: this.state.translateX,
-      originY: this.state.translateY,
+      originX: this.props.translateX,
+      originY: this.props.translateY,
     }
   }
 
@@ -88,9 +80,9 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
     }
     const translateX = this.dragging.originX + e.clientX - this.dragging.startX
     const translateY = this.dragging.originY + e.clientY - this.dragging.startY
-    this.setState({
-      translateX,
-      translateY,
+    this.props.updateState({
+      translateX: translateX,
+      translateY: translateY,
     })
   }
 
@@ -104,17 +96,17 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
     }
     e.preventDefault()
     e.stopPropagation()
-    const scale = Math.max(0.25, Math.min(3, this.state.scale - e.deltaY / 100))
+    const scale = Math.max(0.25, Math.min(3, this.props.scale - e.deltaY / 100))
     const wrapperRect = this.wrapperRef.current!.getBoundingClientRect()
     const translateX =
-      ((e.x - wrapperRect.left - this.state.translateX) / this.state.scale) *
-        (this.state.scale - scale) +
-      this.state.translateX
+      ((e.x - wrapperRect.left - this.props.translateX) / this.props.scale) *
+        (this.props.scale - scale) +
+      this.props.translateX
     const translateY =
-      ((e.y - wrapperRect.top - this.state.translateY) / this.state.scale) *
-        (this.state.scale - scale) +
-      this.state.translateY
-    this.setState({
+      ((e.y - wrapperRect.top - this.props.translateY) / this.props.scale) *
+        (this.props.scale - scale) +
+      this.props.translateY
+    this.props.updateState({
       scale,
       translateX,
       translateY,
@@ -122,7 +114,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
   }
 
   private getContainerStyle = () => {
-    const { scale, translateX, translateY } = this.state
+    const { scale, translateX, translateY } = this.props
     return {
       transform: `matrix(${scale}, 0, 0, ${scale}, ${translateX}, ${translateY})`,
     }

@@ -5,13 +5,15 @@ export interface ProviderProps {
   imageList: Image[]
   defaultIndex?: number
   index?: number
-  onChange?: (e: { index: number; rotate: number; scale: number }) => void
+  onChange?: (e: { index: number }) => void
 }
 export interface ProviderState {
   imageList: Image[]
   index: number
   rotate: number
   scale: number
+  translateX: number
+  translateY: number
   updateState: (nextState: Partial<ProviderState>) => void
 }
 
@@ -20,6 +22,8 @@ const defaultState: ProviderState = {
   index: 0,
   rotate: 0,
   scale: 1,
+  translateX: 0,
+  translateY: 0,
   updateState: () => {},
 }
 
@@ -33,6 +37,8 @@ export class Provider extends React.PureComponent<ProviderProps, ProviderState> 
       index: props.index || props.defaultIndex || defaultState.index,
       rotate: 0,
       scale: 1,
+      translateX: 0,
+      translateY: 0,
       updateState: this.updateState,
     }
   }
@@ -62,7 +68,7 @@ export class Provider extends React.PureComponent<ProviderProps, ProviderState> 
   }
 
   private updateState = (nextState: ProviderState) => {
-    const changeKeys: Array<keyof ProviderState> = ['rotate', 'scale', 'index']
+    const changeKeys: Array<keyof ProviderState> = ['index']
     if (this.props.onChange) {
       if (
         changeKeys.reduce<boolean>((pre, cur) => {
@@ -73,8 +79,6 @@ export class Provider extends React.PureComponent<ProviderProps, ProviderState> 
       ) {
         this.props.onChange({
           index: typeof nextState.index !== 'undefined' ? nextState.index : this.state.index,
-          rotate: typeof nextState.rotate !== 'undefined' ? nextState.rotate : this.state.rotate,
-          scale: typeof nextState.scale !== 'undefined' ? nextState.scale : this.state.scale,
         })
       }
     }
