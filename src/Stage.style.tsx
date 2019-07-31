@@ -9,7 +9,11 @@ export const StyledStage = styled.div`
   user-select: none;
 `
 
-export const StyledImageContainer = styled.div`
+interface StyledImageContainerProps {
+  useTransition?: boolean
+}
+
+export const StyledImageContainer = styled.div<StyledImageContainerProps>`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -18,6 +22,7 @@ export const StyledImageContainer = styled.div`
   height: 100%;
   text-align: center;
   transform-origin: left top;
+  transition: ${({ useTransition }) => (useTransition ? 'all 0.3s ease-in-out' : 'none')};
 `
 
 interface StyledImageProps {

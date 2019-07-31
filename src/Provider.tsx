@@ -14,6 +14,9 @@ export interface ProviderState {
   scale: number
   translateX: number
   translateY: number
+  width: number
+  height: number
+  useTransition: boolean
   updateState: (nextState: Partial<ProviderState>) => void
 }
 
@@ -24,6 +27,9 @@ const defaultState: ProviderState = {
   scale: 1,
   translateX: 0,
   translateY: 0,
+  width: 0,
+  height: 0,
+  useTransition: false,
   updateState: () => {},
 }
 
@@ -39,6 +45,9 @@ export class Provider extends React.PureComponent<ProviderProps, ProviderState> 
       scale: 1,
       translateX: 0,
       translateY: 0,
+      width: 0,
+      height: 0,
+      useTransition: false,
       updateState: this.updateState,
     }
   }

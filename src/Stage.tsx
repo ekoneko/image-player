@@ -2,6 +2,7 @@ import React from 'react'
 import { withContext, ProviderState } from './Provider'
 import { StyledStage, StyledImageContainer, StyledImage } from './Stage.style'
 import classnames from 'classnames'
+import { MIN_SCALE_SIZE, MAX_SCALE_SIZE } from './consts'
 
 export interface StageProps {
   className?: string
@@ -28,10 +29,15 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
     if (this.containerRef.current) {
       this.containerRef.current.addEventListener('wheel', this.handleWheel)
     }
+
+    if (this.wrapperRef.current) {
+      const { width, height } = this.wrapperRef.current.getBoundingClientRect()
+      this.props.updateState({ width, height })
+    }
   }
 
   public render() {
-    const { className, imageList, index } = this.props
+    const { className, imageList, index, useTransition } = this.props
     const currentImage = imageList[index]
     return (
       <StyledStage className={classnames(className)} ref={this.wrapperRef}>
@@ -42,6 +48,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
           onMouseMove={this.handleMouseMove}
           onMouseUp={this.handleMouseUp}
           onMouseLeave={this.handleMouseUp}
+          useTransition={useTransition}
         >
           <StyledImage
             src={currentImage.src}
@@ -50,7 +57,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
             onLoad={this.handleLoad}
             draggable={false}
             style={this.getImageStyle()}
-            useTransition
+            useTransition={useTransition}
           />
         </StyledImageContainer>
       </StyledStage>
@@ -83,6 +90,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
     this.props.updateState({
       translateX: translateX,
       translateY: translateY,
+      useTransition: false,
     })
   }
 
@@ -91,25 +99,31 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
   }
 
   private handleWheel = (e: WheelEvent) => {
-    if (!e.ctrlKey && !e.metaKey) {
-      return
-    }
+    // Prevent origin navigate gestures
     e.preventDefault()
     e.stopPropagation()
-    const scale = Math.max(0.25, Math.min(3, this.props.scale - e.deltaY / 100))
+    if (e.ctrlKey || e.metaKey) {
+      this.handleScale(e.x, e.y, e.deltaY)
+    }
+  }
+
+  private handleScale = (x: number, y: number, delta: number) => {
+    const rawScale = this.props.scale - delta / 100
+    const scale = Math.max(MIN_SCALE_SIZE, Math.min(MAX_SCALE_SIZE, rawScale))
     const wrapperRect = this.wrapperRef.current!.getBoundingClientRect()
     const translateX =
-      ((e.x - wrapperRect.left - this.props.translateX) / this.props.scale) *
+      ((x - wrapperRect.left - this.props.translateX) / this.props.scale) *
         (this.props.scale - scale) +
       this.props.translateX
     const translateY =
-      ((e.y - wrapperRect.top - this.props.translateY) / this.props.scale) *
+      ((y - wrapperRect.top - this.props.translateY) / this.props.scale) *
         (this.props.scale - scale) +
       this.props.translateY
     this.props.updateState({
       scale,
       translateX,
       translateY,
+      useTransition: false,
     })
   }
 
