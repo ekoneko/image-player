@@ -4,4 +4,8 @@ An image preview tool.
 
 - [x] Support image list
 
-- [] Scale and rotate image by toolbar, shortcuts and mouse gesture
+- [x] Scale and rotate image by toolbar, shortcuts and mouse gesture
+
+## How to use
+
+See [examples/index.tsx](examples/index.tsx)

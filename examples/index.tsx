@@ -25,6 +25,7 @@ render(
   document.getElementById('root'),
 )
 
+// prevent default browser gestures
 document.body.addEventListener(
   'wheel',
   (ev) => {
