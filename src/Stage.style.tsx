@@ -5,8 +5,13 @@ export const StyledStage = styled.div`
   height: 100%;
   position: relative;
   overflow: hidden;
-  background-color: #000;
+  background-color: rgba(0, 0, 0, 0.7);
   user-select: none;
+`
+
+export const StyledStageSwitchAnimateWrapper = styled.div`
+  transition: transform 0.3s ease-in-out;
+  height: 100%;
 `
 
 interface StyledImageContainerProps {
@@ -22,6 +27,7 @@ export const StyledImageContainer = styled.div<StyledImageContainerProps>`
   height: 100%;
   text-align: center;
   transform-origin: left top;
+  position: absolute;
   transition: ${({ useTransition }) => (useTransition ? 'all 0.3s ease-in-out' : 'none')};
 `
 

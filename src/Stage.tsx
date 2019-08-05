@@ -1,6 +1,11 @@
 import React from 'react'
 import { withContext, ProviderState } from './Provider'
-import { StyledStage, StyledImageContainer, StyledImage } from './Stage.style'
+import {
+  StyledStage,
+  StyledImageContainer,
+  StyledImage,
+  StyledStageSwitchAnimateWrapper,
+} from './Stage.style'
 import classnames from 'classnames'
 import { MIN_SCALE_SIZE, MAX_SCALE_SIZE } from './consts'
 
@@ -20,6 +25,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
   static displayName = 'Stage'
 
   public wrapperRef = React.createRef<HTMLDivElement>()
+  public switchAnimateRef = React.createRef<HTMLDivElement>()
   public containerRef = React.createRef<HTMLDivElement>()
   public state: StageState = {}
 
@@ -36,30 +42,74 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
     }
   }
 
+  public getSnapshotBeforeUpdate(prevProps: StageProps & ProviderState) {
+    if (prevProps.index !== this.props.index && prevProps.imageList === this.props.imageList) {
+      if (this.containerRef.current && this.switchAnimateRef.current) {
+        const cloneNode = this.containerRef.current.cloneNode(true) as HTMLElement
+        if (this.props.index > prevProps.index) {
+          this.switchAnimateRef.current.style.transition = 'none'
+          this.switchAnimateRef.current.style.transform = 'translate(100%, 0)'
+          cloneNode.style.left = '-100%'
+          this.switchAnimateRef.current.insertBefore(cloneNode, this.containerRef.current)
+        } else {
+          this.switchAnimateRef.current.style.transition = 'none'
+          this.switchAnimateRef.current.style.transform = 'translate(-100%, 0)'
+          cloneNode.style.left = '100%'
+          this.switchAnimateRef.current.appendChild(cloneNode)
+        }
+        return cloneNode
+      }
+    }
+    return null
+  }
+
+  public componentDidUpdate(
+    _prevProps: StageProps & ProviderState,
+    _prevState: StageState,
+    snapshot: HTMLElement | null,
+  ) {
+    if (snapshot) {
+      // wait for dom rending over
+      setTimeout(() => {
+        if (this.switchAnimateRef.current) {
+          this.switchAnimateRef.current.removeAttribute('style')
+          // wait for animating over
+          setTimeout(() => {
+            if (document.body.contains(snapshot)) {
+              snapshot.remove()
+            }
+          }, 300)
+        }
+      }, 0)
+    }
+  }
+
   public render() {
     const { className, imageList, index, useTransition } = this.props
     const currentImage = imageList[index]
     return (
       <StyledStage className={classnames(className)} ref={this.wrapperRef}>
-        <StyledImageContainer
-          ref={this.containerRef}
-          style={this.getContainerStyle()}
-          onMouseDown={this.handleMouseDown}
-          onMouseMove={this.handleMouseMove}
-          onMouseUp={this.handleMouseUp}
-          onMouseLeave={this.handleMouseUp}
-          useTransition={useTransition}
-        >
-          <StyledImage
-            src={currentImage.src}
-            alt=""
-            onError={this.handleError}
-            onLoad={this.handleLoad}
-            draggable={false}
-            style={this.getImageStyle()}
+        <StyledStageSwitchAnimateWrapper ref={this.switchAnimateRef}>
+          <StyledImageContainer
+            ref={this.containerRef}
+            style={this.getContainerStyle()}
+            onMouseDown={this.handleMouseDown}
+            onMouseMove={this.handleMouseMove}
+            onMouseUp={this.handleMouseUp}
+            onMouseLeave={this.handleMouseUp}
             useTransition={useTransition}
-          />
-        </StyledImageContainer>
+          >
+            <StyledImage
+              src={currentImage.src}
+              alt=""
+              onError={this.handleError}
+              onLoad={this.handleLoad}
+              draggable={false}
+              style={this.getImageStyle()}
+              useTransition={useTransition}
+            />
+          </StyledImageContainer>
+        </StyledStageSwitchAnimateWrapper>
       </StyledStage>
     )
   }
