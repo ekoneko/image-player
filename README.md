@@ -4,7 +4,17 @@ An image preview tool.
 
 - [x] Support image list
 
-- [x] Scale and rotate image by toolbar, shortcuts and mouse gesture
+- [x] Scale and rotate image by toolbar and mouse gesture
+
+- [x] Pinch image
+
+- [ ] Shortcut
+
+- [ ] Toolbar icons
+
+- [ ] Full screen support and auto play
+
+- [ ] An electron client
 
 ## How to use
 
