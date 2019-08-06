@@ -19,3 +19,7 @@ An image preview tool.
 ## How to use
 
 See [examples/index.tsx](examples/index.tsx)
+
+## Demo
+
+[http://ekoneko.github.io/image-player/index.html](http://ekoneko.github.io/image-player/index.html)
