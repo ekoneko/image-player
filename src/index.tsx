@@ -1,3 +1,3 @@
 export * from './Provider'
-export * from './Stage'
-export * from './Toolbar'
+export * from './stage/Stage'
+export * from './toolbar/Toolbar'

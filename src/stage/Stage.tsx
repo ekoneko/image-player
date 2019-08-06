@@ -1,5 +1,5 @@
 import React from 'react'
-import { withContext, ProviderState } from './Provider'
+import { withContext, ProviderState } from '../Provider'
 import {
   StyledStage,
   StyledImageContainer,
@@ -7,7 +7,7 @@ import {
   StyledStageSwitchAnimateWrapper,
 } from './Stage.style'
 import classnames from 'classnames'
-import { MIN_SCALE_SIZE, MAX_SCALE_SIZE } from './consts'
+import { MIN_SCALE_SIZE, MAX_SCALE_SIZE } from '../consts'
 
 export interface StageProps {
   className?: string
