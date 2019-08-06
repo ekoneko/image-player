@@ -1,6 +1,6 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider, Stage, Toolbar } from '../src'
+import { Provider, Stage, Toolbar, Shortcuts } from '../src'
 
 const imageList = [
   {
@@ -13,6 +13,7 @@ const imageList = [
 
 render(
   <Provider imageList={imageList}>
+    <Shortcuts />
     <div className="image-preview-wrapper">
       <div className="stage-wrapper">
         <Stage />

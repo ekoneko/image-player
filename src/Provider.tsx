@@ -101,5 +101,6 @@ export function withContext<OwnProps>(WrappedComponent: React.ComponentType<OwnP
       {(context) => <WrappedComponent {...context} {...props} />}
     </ProviderContext.Consumer>
   )
+  SFC.displayName = 'withProvider'
   return SFC
 }
