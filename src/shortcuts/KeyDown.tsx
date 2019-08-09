@@ -16,7 +16,6 @@ class WrappedKeyDown extends React.PureComponent<
   KeyDownState
 > {
   componentDidMount() {
-    console.log('keydown', this.props)
     const { shortKey, callback } = this.props
     this.props.bindKeyDown(shortKey, callback)
   }

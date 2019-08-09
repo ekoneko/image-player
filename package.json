@@ -1,5 +1,5 @@
 {
-  "name": "@ekoneko/image-player",
+  "name": "@ekoneko/image-viewer",
   "version": "1.0.0",
   "description": "",
   "main": "./lib/index.js",
@@ -10,8 +10,9 @@
     "build:demo": "rm -rf dist && parcel build examples/index.html --no-source-maps --public-url=.",
     "build": "npm run build:es5 && npm run build:es6",
     "build:es5": "tsc --outDir lib",
-    "build:es6": "tsc --module esm --outDir modules",
-    "release": "rm -rf ./{lib,modules} && npm run build && np",
+    "build:es6": "tsc --module esnext --outDir esm",
+    "release": "np",
+    "prepublish": "rm -rf ./{lib,modules} && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
