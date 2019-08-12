@@ -1,11 +1,22 @@
 import React from 'react'
 import { StyledToolbar, StyledToolbarGrid } from './Toolbar.style'
 import { ToolbarButton } from './ToolbarButton'
-import { RotateProvider, RotateHandlers } from '../stateProviders/RotateProvider'
-import { ScaleProvider, ScaleHandlers } from '../stateProviders/ScaleProvider'
-import { NavigateProvider, NavigateHandlers } from '../stateProviders/NavigateProvider'
-import { MIN_SCALE_SIZE, MAX_SCALE_SIZE } from '../consts'
-import { Image } from '../types/Image'
+import {
+  RotateProvider,
+  RotateHandlers,
+  ScaleProvider,
+  ScaleHandlers,
+  NavigateProvider,
+  NavigateHandlers,
+} from '../../src'
+import { MIN_SCALE_SIZE, MAX_SCALE_SIZE } from '../../src/consts'
+import { Image } from '../../src/types/Image'
+import ICON_MINUS from '../assets/minus.svg'
+import ICON_PLUS from '../assets/plus.svg'
+import ICON_ROTATE_LEFT from '../assets/rotate-l.svg'
+import ICON_ROTATE_RIGHT from '../assets/rotate-r.svg'
+import ICON_PREV from '../assets/prev.svg'
+import ICON_NEXT from '../assets/next.svg'
 
 export interface ToolbarProps {
   scale: number
@@ -26,22 +37,34 @@ class WrappedToolbar extends React.PureComponent<ToolbarProps & Handles, Toolbar
     return (
       <StyledToolbar>
         <StyledToolbarGrid>
-          <ToolbarButton onClick={this.props.onNavigatePrev}> </ToolbarButton>
+          <ToolbarButton onClick={this.props.onNavigatePrev}>
+            <img src={ICON_PREV} />
+          </ToolbarButton>
         </StyledToolbarGrid>
         <StyledToolbarGrid>
-          <ToolbarButton onClick={this.props.onNavigateNext}> </ToolbarButton>
+          <ToolbarButton onClick={this.props.onNavigateNext}>
+            <img src={ICON_NEXT} />
+          </ToolbarButton>
         </StyledToolbarGrid>
         <StyledToolbarGrid>
-          <ToolbarButton onClick={this.props.onRotateLeft}> </ToolbarButton>
+          <ToolbarButton onClick={this.props.onRotateLeft}>
+            <img src={ICON_ROTATE_LEFT} />
+          </ToolbarButton>
         </StyledToolbarGrid>
         <StyledToolbarGrid>
-          <ToolbarButton onClick={this.props.onRotateRight}> </ToolbarButton>
+          <ToolbarButton onClick={this.props.onRotateRight}>
+            <img src={ICON_ROTATE_RIGHT} />
+          </ToolbarButton>
         </StyledToolbarGrid>
         <StyledToolbarGrid>
-          <ToolbarButton onClick={this.props.onScaleDown} disabled={scale <= MIN_SCALE_SIZE} />
+          <ToolbarButton onClick={this.props.onScaleDown} disabled={scale <= MIN_SCALE_SIZE}>
+            <img src={ICON_MINUS} />
+          </ToolbarButton>
         </StyledToolbarGrid>
         <StyledToolbarGrid>
-          <ToolbarButton onClick={this.props.onScaleUp} disabled={scale >= MAX_SCALE_SIZE} />
+          <ToolbarButton onClick={this.props.onScaleUp} disabled={scale >= MAX_SCALE_SIZE}>
+            <img src={ICON_PLUS} />
+          </ToolbarButton>
         </StyledToolbarGrid>
       </StyledToolbar>
     )

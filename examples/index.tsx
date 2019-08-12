@@ -1,6 +1,8 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { Provider, Stage, Toolbar, Shortcuts } from '../src'
+import { Provider, Stage } from '../src'
+import { Keybindings } from './Keybindings'
+import { Toolbar } from './toolbar/Toolbar'
 
 const imageList = [
   {
@@ -13,7 +15,7 @@ const imageList = [
 
 render(
   <Provider imageList={imageList}>
-    <Shortcuts />
+    <Keybindings />
     <div className="image-preview-wrapper">
       <div className="stage-wrapper">
         <Stage />

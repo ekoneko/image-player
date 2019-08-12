@@ -8,9 +8,9 @@ An image preview tool.
 
 - [x] Pinch image
 
-- [ ] Shortcut
+- [x] Shortcut
 
-- [ ] Toolbar icons
+- [x] Toolbar icons
 
 - [ ] Full screen support and auto play
 

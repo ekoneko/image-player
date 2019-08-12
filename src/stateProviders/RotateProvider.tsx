@@ -28,7 +28,7 @@ class WrappedRotateProvider extends React.PureComponent<RotateProviderProps & Pr
   }
 
   private handleRotate = (nextRotate: number) => {
-    this.props.updateState({ rotate: nextRotate })
+    this.props.updateState({ rotate: nextRotate, useTransition: true })
   }
 
   private handleRotateLeft = () => {

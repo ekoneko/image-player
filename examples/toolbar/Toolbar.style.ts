@@ -16,6 +16,11 @@ export const StyledButton = styled.div`
   width: 36px;
   height: 36px;
   margin: 0 auto;
-  border: 1px solid #eee;
   box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+
+  & > img {
+    width: 32px;
+  }
 `

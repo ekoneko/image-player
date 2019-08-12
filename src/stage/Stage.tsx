@@ -76,7 +76,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
           // wait for animating over
           setTimeout(() => {
             if (document.body.contains(snapshot)) {
-              snapshot.remove()
+              // snapshot.remove()
             }
           }, 300)
         }
