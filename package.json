@@ -1,6 +1,6 @@
 {
   "name": "@ekoneko/image-viewer",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "homepage": "https://github.com/ekoneko/image-viewer",
   "main": "./lib/index.js",
