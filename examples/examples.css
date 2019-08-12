@@ -1,5 +1,6 @@
 .image-preview-wrapper {
   position: relative;
+  background: rgba(0, 0, 0, 0.7);
 }
 
 .stage-wrapper {

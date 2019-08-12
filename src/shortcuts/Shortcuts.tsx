@@ -10,25 +10,26 @@ export interface ShortcutsProps extends NavigateHandlers {
   imageList: Image[]
   onIndexChange: (index: number) => void
 }
-export interface ShortcutsState {}
-class WrappedShortcuts extends React.PureComponent<ShortcutsProps, ShortcutsState> {
-  render() {
-    return (
-      <ShortcutsProvider>
-        <KeyDown shortKey="arrowLeft" callback={this.props.onNavigatePrev} />
-        <KeyDown shortKey="arrowRight" callback={this.props.onNavigateNext} />
-      </ShortcutsProvider>
-    )
-  }
+
+export const WrappedShortcuts: React.SFC<ShortcutsProps> = (props) => {
+  return (
+    <ShortcutsProvider>
+      <KeyDown shortKey="arrowLeft" callback={props.onNavigatePrev} />
+      <KeyDown shortKey="arrowRight" callback={props.onNavigateNext} />
+      {props.children}
+    </ShortcutsProvider>
+  )
 }
 
 const ShortcutsWithBind = withShortcutsContext<ShortcutsProps>(WrappedShortcuts)
 
-export const Shortcuts: React.SFC<{}> = () => {
+export const Shortcuts: React.SFC<{}> = (props) => {
   return (
     <NavigateProvider>
       {(index, imageList, handlers) => (
-        <ShortcutsWithBind index={index} imageList={imageList} {...handlers} />
+        <ShortcutsWithBind index={index} imageList={imageList} {...handlers}>
+          {props.children}
+        </ShortcutsWithBind>
       )}
     </NavigateProvider>
   )

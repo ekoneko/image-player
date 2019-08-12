@@ -5,7 +5,6 @@ export const StyledStage = styled.div`
   height: 100%;
   position: relative;
   overflow: hidden;
-  background-color: rgba(0, 0, 0, 0.7);
   user-select: none;
 `
 
@@ -39,10 +38,6 @@ export const StyledImage = styled.img<StyledImageProps>`
   max-width: 100%;
   max-height: 100%;
   font-size: 18px;
-  background-size: contain;
-  background-repeat: no-repeat;
-  background-position-x: center;
-  background-position-y: center;
   transition: ${({ useTransition }) => (useTransition ? 'all 0.3s ease-in-out' : 'none')};
   transform-origin: center center;
 `
