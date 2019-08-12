@@ -76,7 +76,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
           // wait for animating over
           setTimeout(() => {
             if (document.body.contains(snapshot)) {
-              // snapshot.remove()
+              snapshot.remove()
             }
           }, 300)
         }
@@ -87,6 +87,9 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
   public render() {
     const { className, imageList, index, useTransition } = this.props
     const currentImage = imageList[index]
+    if (!currentImage) {
+      return null
+    }
     return (
       <StyledStage className={classnames(className)} ref={this.wrapperRef}>
         <StyledStageSwitchAnimateWrapper ref={this.switchAnimateRef}>

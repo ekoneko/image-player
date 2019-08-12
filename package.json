@@ -13,8 +13,7 @@
     "build:es5": "tsc --outDir lib",
     "build:es6": "tsc --module esnext --outDir esm",
     "release": "np",
-    "prepublish": "rm -rf ./{lib,esm} && npm run build",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "rm -rf ./{lib,esm} && npm run build"
   },
   "files": [
     "esm/index.d.ts",

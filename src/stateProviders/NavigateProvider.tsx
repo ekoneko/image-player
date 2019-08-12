@@ -30,7 +30,13 @@ class WrappedNavigateProvider extends React.PureComponent<
     return this.props.children(index, imageList, this.handlers)
   }
 
-  handleIndexChange = (nextIndex: number) => {
+  handleIndexChange = async (nextIndex: number) => {
+    const currentImage = this.props.imageList[nextIndex]
+    if (currentImage) {
+      if (currentImage.src) {
+        await this.preload(currentImage.src)
+      }
+    }
     this.props.updateState({
       scale: 1,
       translateX: 0,
@@ -53,6 +59,15 @@ class WrappedNavigateProvider extends React.PureComponent<
     if (index < imageList.length - 1) {
       this.handleIndexChange(index + 1)
     }
+  }
+
+  preload = (src: string) => {
+    const img = document.createElement('img')
+    return new Promise((resolve, reject) => {
+      img.onload = () => resolve()
+      img.onerror = () => reject()
+      img.src = src
+    })
   }
 }
 export const NavigateProvider = withContext<NavigateProviderProps>(WrappedNavigateProvider)
