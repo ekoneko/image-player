@@ -12,9 +12,16 @@
     "build:es5": "tsc --outDir lib",
     "build:es6": "tsc --module esnext --outDir esm",
     "release": "np",
-    "prepublish": "rm -rf ./{lib,modules} && npm run build",
+    "prepublish": "rm -rf ./{lib,esm} && npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "files": [
+    "esm/index.d.ts",
+    "lib/*",
+    "esm/*",
+    "assets/*",
+    "README.md"
+  ],
   "keywords": [],
   "author": "",
   "license": "MIT",
