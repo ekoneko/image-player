@@ -2,6 +2,7 @@
   "name": "@ekoneko/image-viewer",
   "version": "1.0.0",
   "description": "",
+  "homepage": "https://github.com/ekoneko/image-viewer",
   "main": "./lib/index.js",
   "module": "./esm/index.js",
   "types": "./esm/index.d.ts",
