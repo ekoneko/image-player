@@ -17,6 +17,7 @@ export interface ProviderState {
   width: number
   height: number
   useTransition: boolean
+  pinchTransition: boolean
   updateState: (nextState: Partial<ProviderState>) => void
 }
 
@@ -30,6 +31,7 @@ const defaultState: ProviderState = {
   width: 0,
   height: 0,
   useTransition: false,
+  pinchTransition: false,
   updateState: () => {},
 }
 
@@ -48,6 +50,7 @@ export class Provider extends React.PureComponent<ProviderProps, ProviderState> 
       width: 0,
       height: 0,
       useTransition: false,
+      pinchTransition: false,
       updateState: this.updateState,
     }
   }

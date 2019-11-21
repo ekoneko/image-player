@@ -15,6 +15,18 @@ export const StyledStageSwitchAnimateWrapper = styled.div`
 
 interface StyledImageContainerProps {
   useTransition?: boolean
+  pinchTransition?: boolean
+}
+
+function getImageContainerTransition(props: StyledImageContainerProps) {
+  const { useTransition, pinchTransition } = props
+  if (useTransition) {
+    return 'all 0.3s ease-in-out'
+  }
+  if (pinchTransition) {
+    return 'all 0.1s linear'
+  }
+  return 'none'
 }
 
 export const StyledImageContainer = styled.div<StyledImageContainerProps>`
@@ -27,7 +39,7 @@ export const StyledImageContainer = styled.div<StyledImageContainerProps>`
   text-align: center;
   transform-origin: left top;
   position: absolute;
-  transition: ${({ useTransition }) => (useTransition ? 'all 0.3s ease-in-out' : 'none')};
+  transition: ${getImageContainerTransition};
 `
 
 interface StyledImageProps {

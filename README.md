@@ -14,7 +14,7 @@ An image preview tool.
 
 - [ ] Full screen support and auto play
 
-- [ ] An electron client
+- [x] An electron client
 
 ## How to use
 
