@@ -210,6 +210,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
         e.touches[0].clientY - e.touches[1].clientY,
       )
       const delta = this.scaling.distance - distance
+      this.scaling.distance = distance
       this.scale(this.scaling.originX, this.scaling.originY, delta / 500)
       this.props.updateState({ pinchTransition: true })
     }
