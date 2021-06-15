@@ -64,8 +64,8 @@ class WrappedNavigateProvider extends React.PureComponent<
   preload = (src: string) => {
     const img = document.createElement('img')
     return new Promise((resolve, reject) => {
-      img.onload = () => resolve()
-      img.onerror = () => reject()
+      img.onload = resolve
+      img.onerror = reject
       img.src = src
     })
   }

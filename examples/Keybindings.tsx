@@ -1,5 +1,6 @@
-import { NavigateProvider, NavigateProviderProps, Shortcuts } from '../src'
-import { KeyDown } from '../src/Shortcuts/KeyDown'
+import React from 'react'
+import { NavigateProvider, Shortcuts } from '../src'
+import { KeyDown } from '../src/shortcuts/KeyDown'
 
 export const Keybindings: React.SFC<{}> = (props) => {
   return (

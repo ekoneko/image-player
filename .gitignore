@@ -3,3 +3,4 @@ esm
 lib
 dist
 .cache
+.parcel-cache
