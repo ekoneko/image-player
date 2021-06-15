@@ -6,7 +6,6 @@ import {
   StyledImage,
   StyledStageSwitchAnimateWrapper,
 } from './Stage.style'
-import classnames from 'classnames'
 import { MIN_SCALE_SIZE, MAX_SCALE_SIZE } from '../consts'
 
 export interface StageProps {
@@ -97,7 +96,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
       return null
     }
     return (
-      <StyledStage className={classnames(className)} ref={this.wrapperRef}>
+      <StyledStage className={className} ref={this.wrapperRef}>
         <StyledStageSwitchAnimateWrapper ref={this.switchAnimateRef}>
           <StyledImageContainer
             ref={this.containerRef}
