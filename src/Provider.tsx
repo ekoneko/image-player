@@ -35,7 +35,7 @@ const defaultState: ProviderState = {
   updateState: () => {},
 }
 
-const ProviderContext = React.createContext<ProviderState>(defaultState)
+export const ProviderContext = React.createContext<ProviderState>(defaultState)
 
 export class Provider extends React.PureComponent<ProviderProps, ProviderState> {
   constructor(props: ProviderProps) {
