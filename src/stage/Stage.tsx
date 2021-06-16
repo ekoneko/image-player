@@ -96,15 +96,18 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
       return null
     }
     return (
-      <StyledStage className={className} ref={this.wrapperRef}>
+      <StyledStage
+        className={className}
+        ref={this.wrapperRef}
+        onMouseMove={this.handleMouseMove}
+        onMouseUp={this.handleMouseUp}
+        onMouseLeave={this.handleMouseUp}
+      >
         <StyledStageSwitchAnimateWrapper ref={this.switchAnimateRef}>
           <StyledImageContainer
             ref={this.containerRef}
             style={this.getContainerStyle()}
             onMouseDown={this.handleMouseDown}
-            onMouseMove={this.handleMouseMove}
-            onMouseUp={this.handleMouseUp}
-            onMouseLeave={this.handleMouseUp}
             onTouchStart={this.handleTouchStart}
             onTouchMove={this.handleTouchMove}
             onTouchEnd={this.handleTouchEnd}
