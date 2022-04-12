@@ -121,6 +121,7 @@ class WrappedStage extends React.PureComponent<StageProps & ProviderState, Stage
               onError={this.handleError}
               onLoad={this.handleLoad}
               draggable={false}
+              onDragStart={ev => ev.preventDefault()}
               style={this.getImageStyle()}
               useTransition={useTransition}
             />
